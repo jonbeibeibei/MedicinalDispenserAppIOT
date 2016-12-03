@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.jonathan.iotmedicineapp">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/familystatus"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Family_Status.UserActivity"
+            android:label="Family Status"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Calendar.CalendarActivity"
+            android:label="Calendar"></activity>
+        <activity android:name=".Chart.ChartActivity"
+            android:label="Chart"></activity>
+        <activity android:name=".Inventory.DrugActivity"
+            android:label="Inventory">
+        </activity>
+        <activity android:name=".Settings"
+            android:label="Settings"></activity>
+    </application>
+
+</manifest>

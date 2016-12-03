@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#93DBCF</color>
+    <color name="colorPrimaryDark">#567f79</color>
+    <color name="navDrawerHeader">#37bcac</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTextSelected">#131C1B</color>
+    <color name="titleBarText">#686868</color>
+    <color name="textViewTextColor1">#686868</color>
+    <color name="mainColor">#E0E0E0</color>
+    <color name="partColor">#f7f7f7</color>
+    <color name="greenHighlight">#93dbcf</color>
+    <color name="textColor">#686868</color>
+</resources>
