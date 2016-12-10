@@ -8,37 +8,33 @@ import java.util.List;
  */
 
 public class Inventory {
-    private List<List<String>> inventory = new ArrayList<>();
-    private List<String> medicine = new ArrayList<String>(3);
+    private List<Medicine> inventory = new ArrayList<>();
+    private Medicine medicine;
 
-    private void addMedicine(String name, int amount, String website) {
-        medicine.add(name);
-        medicine.add(Integer.toString(amount));
-        medicine.add(website);
+    public void addMedicine(String name, boolean amount, String website) {
+        medicine = new Medicine(name, amount, website);
 
         inventory.add(medicine);
-
-        medicine.clear();
     }
 
-    private void removeMedicine(String name) {
-        for (List<String> medication : inventory) {
-            if (medication.get(0).equals(name)) {
+    public void removeMedicine(String name) {
+        for (Medicine medication : inventory) {
+            if (medication.getName().equals(name)) {
                 inventory.remove(medication);
             }
         }
     }
 
-    private String getInventory() {
-        return inventory.toString();
+    public List<Medicine> getInventory() {
+        return inventory;
     }
 
 
 
-    private String getAmount(String name) {
-        for (List<String> medication : inventory) {
-            if (medication.get(0).equals(name)) {
-                return medication.get(1);
+    public String getAmount(String name) {
+        for (Medicine medication : inventory) {
+            if (medication.getName().equals(name)) {
+                return Boolean.toString(medication.getAmount());
             }
         }
         return "Please refill soon!";
