@@ -53,6 +53,8 @@ public class CalendarActivity extends MainActivity {
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
+
+
     }
 
     @Override

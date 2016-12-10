@@ -18,6 +18,7 @@ public class ChartActivity extends MainActivity {
         setContentView(R.layout.chartactivity);
         initDrawer();
         (new LineCardOne((CardView) findViewById(R.id.card1), getApplicationContext())).init();
+        (new LineCardTwo((CardView) findViewById(R.id.card2), getApplicationContext())).init();
     }
 
 }

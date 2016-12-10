@@ -19,6 +19,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         if (position == 0) {
             CompactCalendarTab compactCalendarTab = new CompactCalendarTab();
+
             return compactCalendarTab;
         } else {
             Tab2 tab2 = new Tab2();

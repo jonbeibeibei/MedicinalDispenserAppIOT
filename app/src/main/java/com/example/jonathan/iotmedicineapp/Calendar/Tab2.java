@@ -12,7 +12,7 @@ import com.example.jonathan.iotmedicineapp.R;
 public class Tab2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tab_2,container,false);
+        View v = inflater.inflate(R.layout.calendar_tab_2,container,false);
         return v;
     }
 }

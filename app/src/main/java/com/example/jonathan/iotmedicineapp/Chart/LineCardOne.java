@@ -28,10 +28,10 @@ public class LineCardOne extends CardController {
 	private final Context mContext;
 
 
-	private final String[] mLabels = {"Jan", "Feb", "Mar", "Apr", "Jun", "May", "Jul", "Aug", "Sep"};
+	private final String[] mLabels = {"Nov","Dec","Jan", "Feb", "Mar", "Apr", "Jun", "May", "Jul", "Aug", "Sep"};
 
-	private final float[][] mValues = {{3.5f, 4.7f, 4.3f, 8f, 6.5f, 9.9f, 7f, 8.3f, 7.0f},
-			  {4.5f, 2.5f, 2.5f, 9f, 4.5f, 9.5f, 5f, 8.3f, 1.8f}};
+	private final float[][] mValues = {{80.0f, 100.0f,10f,20f,30f,40f,50f,60f,70f,80f,90f},{10.0F,40.0f}};
+
 
 	private Tooltip mTip;
 
@@ -78,21 +78,21 @@ public class LineCardOne extends CardController {
 		mChart.setTooltips(mTip);
 
 		// Data
-		LineSet dataset = new LineSet(mLabels, mValues[0]);
-		dataset.setColor(Color.parseColor("#758cbb"))
-				  .setFill(Color.parseColor("#2d374c"))
-				  .setDotsColor(Color.parseColor("#758cbb"))
-				  .setThickness(4)
-				  .setDashed(new float[] {10f, 10f})
-				  .beginAt(5);
-		mChart.addData(dataset);
+//		LineSet dataset = new LineSet(mLabels, mValues[0]);
+//		dataset.setColor(Color.parseColor("#758cbb"))
+//				  .setFill(Color.parseColor("#2d374c"))
+//				  .setDotsColor(Color.parseColor("#758cbb"))
+//				  .setThickness(4)
+//				  .setDashed(new float[] {10f, 10f})
+//				  .beginAt(0);
+//		mChart.addData(dataset);
 
-		dataset = new LineSet(mLabels, mValues[0]);
+		LineSet dataset = new LineSet(mLabels, mValues[0]);
 		dataset.setColor(Color.parseColor("#b3b5bb"))
 				  .setFill(Color.parseColor("#2d374c"))
 				  .setDotsColor(Color.parseColor("#ffc755"))
 				  .setThickness(4)
-				  .endAt(6);
+				  .endAt(11);
 		mChart.addData(dataset);
 
 		// Chart
@@ -100,8 +100,9 @@ public class LineCardOne extends CardController {
 				  .setAxisBorderValues(0, 20)
 				  .setYLabels(AxisRenderer.LabelPosition.NONE)
 				  .setLabelsColor(Color.parseColor("#6a84c3"))
-				  .setXAxis(false)
-				  .setYAxis(false);
+				  .setXAxis(true)
+				  .setAxisBorderValues(0,110)
+				  .setYAxis(true);
 
 		mBaseAction = action;
 		Runnable chartAction = new Runnable() {
