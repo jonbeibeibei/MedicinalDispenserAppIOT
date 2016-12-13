@@ -1,33 +1,26 @@
 package com.example.jonathan.iotmedicineapp.Inventory;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jonathan.iotmedicineapp.MainActivity;
 import com.example.jonathan.iotmedicineapp.R;
 import com.example.jonathan.iotmedicineapp.Utilities.Inventory;
 import com.example.jonathan.iotmedicineapp.Utilities.Medicine;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by Jonathan on 2/12/2016.
@@ -46,23 +39,23 @@ public class DrugActivity extends MainActivity {
 
         populateMedicineList();
         populateMedicineView();
-        registerClickCallback();
+//        registerClickCallback();
 
     }
 
-    private void registerClickCallback() {
-        ListView medList = (ListView) findViewById(R.id.medicineListview);
-        medList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Medicine clickedMed = inventoryList.get(i);
-                String url = clickedMed.getWebsite();
-                Intent webIntent = new Intent(Intent.ACTION_VIEW);
-                webIntent.setData(Uri.parse(url));
-                startActivity(webIntent);
-            }
-        });
-    }
+//    private void registerClickCallback() {
+//        ListView medList = (ListView) findViewById(R.id.medicineListview);
+//        medList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Medicine clickedMed = inventoryList.get(i);
+//                String url = clickedMed.getWebsite();
+//                Intent webIntent = new Intent(Intent.ACTION_VIEW);
+//                webIntent.setData(Uri.parse(url));
+//                startActivity(webIntent);
+//            }
+//        });
+//    }
 
     private void populateMedicineList() {
         final FirebaseDatabase medicineDatabase = FirebaseDatabase.getInstance();
@@ -120,14 +113,46 @@ public class DrugActivity extends MainActivity {
 
             TextView makeText = (TextView) medicineView.findViewById(R.id.medicine_name);
             makeText.setText(currentMed.getName());
+            makeText.setTag(currentMed.getName());
+            makeText.setOnClickListener(medListener);
+
+            TextView refillText = (TextView) medicineView.findViewById(R.id.replenishSupplies);
+            refillText.setTag(currentMed.getWebsite());
+            refillText.setOnClickListener(medListener);
 
             TextView makeStatus = (TextView) medicineView.findViewById(R.id.medicine_status);
             if (currentMed.getAmount() == true) status = "Sufficient";
             else status = "Refill soon";
             makeStatus.setText(status);
+            makeStatus.setTag(currentMed.getName());
+            makeStatus.setOnClickListener(medListener);
 
             return medicineView;
         }
+
+        private View.OnClickListener medListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.medicine_name:
+                        medInventory.removeMedicine(view.getTag().toString());
+                        Toast.makeText(getApplicationContext(), view.getTag().toString(), Toast.LENGTH_SHORT).show();
+                        refreshInventory();
+                    case R.id.medicine_status:
+                        medInventory.removeMedicine(view.getTag().toString());
+                        Toast.makeText(getApplicationContext(),view.getTag().toString(), Toast.LENGTH_SHORT).show();
+                        refreshInventory();
+                    case R.id.replenishSupplies:
+                        Toast.makeText(getApplicationContext(), view.getTag().toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+    }
+
+
+    public void refreshInventory() {
+        finish();
+        startActivity(getIntent());
     }
 
     @Override

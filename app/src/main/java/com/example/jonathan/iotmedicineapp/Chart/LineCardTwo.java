@@ -17,9 +17,82 @@ import com.db.chart.renderer.AxisRenderer;
 import com.db.chart.tooltip.Tooltip;
 import com.db.chart.view.LineChartView;
 import com.example.jonathan.iotmedicineapp.R;
+import com.example.jonathan.iotmedicineapp.Utilities.Status;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
 
 
 public class LineCardTwo extends CardController {
+
+    double momMissed;
+    float chartnum;
+
+
+    public void getMom() {
+        FirebaseDatabase chartDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference chartRef = chartDatabase.getReference("Parents/Mom/missed");
+        chartRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Status status = dataSnapshot.getValue(Status.class);
+                momMissed = status.averageMissed();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getNum(){
+        int day;
+        getMom();
+        if (momMissed == 0){
+            chartnum = 0;
+        }
+        else if(momMissed == 30){
+            chartnum = 33.3f;
+        }
+        else if(momMissed == 60){
+            chartnum = 66.6f;
+        }
+        else if(momMissed == 100){
+            chartnum = 100f;
+        }
+
+        day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+
+        if (day == 1){
+            mValues[0][0] = chartnum;
+        }
+        else if (day == 2){
+            mValues[0][1] = chartnum;
+        }
+        else if (day == 3){
+            mValues[0][2] = chartnum;
+        }
+        else if (day == 4){
+            mValues[0][3] = chartnum;
+        }
+        else if (day == 5){
+            mValues[0][4] = chartnum;
+        }
+        else if (day == 6){
+            mValues[0][5] = chartnum;
+        }
+        else if (day == 7){
+            mValues[0][6] = chartnum;
+        }
+
+    }
+
+
 
 
     private final LineChartView mChart;
@@ -28,10 +101,10 @@ public class LineCardTwo extends CardController {
     private final Context mContext;
 
 
-    private final String[] mLabels = {"Jan", "Feb", "Mar", "Apr", "Jun", "May", "Jul", "Aug", "Sep"};
+    private final String[] mLabels = {"Mon","Tues","Weds","Thurs","Fri","Sat","Sun"};
 
-    private final float[][] mValues = {{4.0f, 9.0f, 2.0f, 6.9f, 5.9f, 1.0f, 7f, 8.3f, 7.0f},
-            {4.5f, 2.5f, 2.5f, 9f, 4.5f, 9.5f, 5f, 8.3f, 1.8f}};
+    private final float[][] mValues = {{80.0f, 100.0f,10f,20f,30f,40f,50f},{10.0F,40.0f}};
+
 
     private Tooltip mTip;
 
@@ -78,21 +151,23 @@ public class LineCardTwo extends CardController {
         mChart.setTooltips(mTip);
 
         // Data
+//        LineSet dataset = new LineSet(mLabels, mValues[0]);
+//        dataset.setColor(Color.parseColor("#758cbb"))
+//                .setFill(Color.parseColor("#2d374c"))
+//                .setDotsColor(Color.parseColor("#758cbb"))
+//                .setThickness(4)
+//                .setDashed(new float[] {10f, 10f})
+//                .beginAt(5);
+//        mChart.addData(dataset);
+
         LineSet dataset = new LineSet(mLabels, mValues[0]);
-        dataset.setColor(Color.parseColor("#758cbb"))
-                .setFill(Color.parseColor("#2d374c"))
-                .setDotsColor(Color.parseColor("#758cbb"))
-                .setThickness(4)
-                .setDashed(new float[] {10f, 10f})
-                .beginAt(5);
-        mChart.addData(dataset);
 
         dataset = new LineSet(mLabels, mValues[0]);
         dataset.setColor(Color.parseColor("#b3b5bb"))
                 .setFill(Color.parseColor("#2d374c"))
                 .setDotsColor(Color.parseColor("#ffc755"))
                 .setThickness(4)
-                .endAt(6);
+                .endAt(7);
         mChart.addData(dataset);
 
         // Chart
@@ -100,8 +175,9 @@ public class LineCardTwo extends CardController {
                 .setAxisBorderValues(0, 20)
                 .setYLabels(AxisRenderer.LabelPosition.NONE)
                 .setLabelsColor(Color.parseColor("#6a84c3"))
-                .setXAxis(false)
-                .setYAxis(false);
+                .setXAxis(true)
+                .setAxisBorderValues(0,110)
+                .setYAxis(true);
 
         mBaseAction = action;
         Runnable chartAction = new Runnable() {
