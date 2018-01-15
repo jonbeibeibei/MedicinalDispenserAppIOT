@@ -5,7 +5,7 @@ Android App for use with Medical Dispenser
 
 #### Family Dosage Status
 
-![alt text](https://github.com/jonbeibeibei/MedicinalDispenserAppIOT/blob/master/Assets/screen1.png "screen1")
+![alt text](https://github.com/jonbeibeibei/MedicinalDispenserAppIOT/blob/master/Assets/screen1.png?s=200 "screen1")
 
 #### Family Dosage Chart
 
